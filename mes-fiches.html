@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes fiches sauvegardées – Bourses Congo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+</head>
+<body>
+    <header>
+        <h1>⭐ Mes fiches sauvegardées</h1>
+        <p class="sous-titre">Consultables même sans connexion internet</p>
+    </header>
+
+    <main>
+        <div id="saved-list" class="saved-container">
+            <p>Chargement...</p>
+        </div>
+        <p><a href="index.html">← Retour au calendrier</a></p>
+    </main>
+
+    <footer>
+        <p>Les sauvegardes sont stockées sur votre téléphone uniquement.</p>
+    </footer>
+
+    <script>
+        function afficherSauvegardes() {
+            const container = document.getElementById('saved-list');
+            const saved = JSON.parse(localStorage.getItem('bourses_saved')) || [];
+            
+            if (saved.length === 0) {
+                container.innerHTML = '<p>📭 Aucune fiche sauvegardée pour le moment. Utilisez le bouton "💾 Sauvegarder" sur une fiche.</p>';
+                return;
+            }
+            
+            let html = '<ul class="saved-ul">';
+            saved.forEach((item, index) => {
+                html += `
+                    <li class="saved-item">
+                        <strong>${escapeHtml(item.titre)}</strong><br>
+                        📅 Date limite : ${item.date || 'non précisée'}<br>
+                        📝 Conditions : ${escapeHtml(item.conditions || 'Voir fiche originale')}<br>
+                        <a href="${item.url}" target="_blank">🔗 Ouvrir la fiche originale (nécessite internet)</a><br>
+                        <button class="btn-delete" data-index="${index}">🗑 Supprimer cette sauvegarde</button>
+                    </li>
+                `;
+            });
+            html += '</ul>';
+            container.innerHTML = html;
+            
+            // Ajouter les événements de suppression
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = parseInt(btn.getAttribute('data-index'));
+                    let saved = JSON.parse(localStorage.getItem('bourses_saved')) || [];
+                    saved.splice(idx, 1);
+                    localStorage.setItem('bourses_saved', JSON.stringify(saved));
+                    afficherSauvegardes(); // rafraîchir
+                    alert('Fiche supprimée de vos sauvegardes.');
+                });
+            });
+        }
+        
+        // Fonction simple pour éviter les injections XSS
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+                return c;
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', afficherSauvegardes);
+    </script>
+</body>
+</html>

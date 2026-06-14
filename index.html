@@ -3,40 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="Site officieux de référence pour les bourses et concours en République du Congo. Calendrier, fiches, alertes.">
-    <title>Bourses & Concours Congo</title>
+    <meta name="description" content="Calendrier des bourses et concours en République du Congo. Filtre par région, fiches détaillées, sauvegarde hors ligne.">
+    <title>Bourses & Concours Congo – Calendrier</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>">
 </head>
 <body>
     <header>
-        <h1>📘 Bourses & Concours Congo</h1>
-        <p class="sous-titre">Informations vérifiées pour Brazzaville, Pointe-Noire, Dolisie et tout le Congo</p>
+        <h1>📅 Bourses & Concours Congo</h1>
+        <p class="sous-titre">Calendrier des échéances – mises à jour régulières</p>
     </header>
 
     <main>
-        <section class="intro">
-            <p>🔍 Ce site recense les opportunités de bourses d'études et les dates de concours (fonction publique, grandes écoles, armée). Les fiches sont consultables même hors ligne après sauvegarde.</p>
-        </section>
+        <div class="filtre-region">
+            <label>🌍 Filtrer par région :</label>
+            <select id="region-select">
+                <option value="all">Toutes les régions</option>
+                <option value="Brazzaville">Brazzaville</option>
+                <option value="Pointe-Noire">Pointe-Noire</option>
+                <option value="Dolisie">Dolisie</option>
+                <option value="National">National</option>
+            </select>
+        </div>
 
-        <section class="calendrier-simple">
-            <h2>📅 Échéances récentes & à venir</h2>
-            <div class="message-construction">
-                ⚙️ Le calendrier complet sera affiché ici dans quelques jours. En attendant, voici les premières fiches :
-            </div>
-            <ul id="liste-fiches">
-                <!-- Liens vers les fiches créées à l'étape 5 -->
-                <li><a href="fiches/bourse-ambassade-france.html">Bourse Ambassade de France (exemple)</a></li>
-                <li><a href="fiches/concours-ensp-brazzaville.html">Concours ENSP Brazzaville (exemple)</a></li>
-                <li><a href="fiches/bourse-congo-petrole.html">Bourse Congo Pétrole (exemple)</a></li>
-            </ul>
-        </section>
+        <div class="table-container">
+            <table id="calendrier-table">
+                <thead>
+                    <tr>
+                        <th>Date limite</th>
+                        <th>Événement</th>
+                        <th>Région</th>
+                        <th>Lien fiche</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Les lignes seront générées en JavaScript à partir d'un tableau d'objets -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info-sauvegarde">
+            <p>💾 <a href="mes-fiches.html">Voir mes fiches sauvegardées</a> (consultables hors ligne)</p>
+        </div>
     </main>
 
     <footer>
-        <p>🚀 Site communautaire – <a href="https://wa.me/242XXXXXXXXX" target="_blank">Nous contacter sur WhatsApp</a> (remplacez par votre lien)</p>
-        <p>📢 Une info à partager ? <a href="#">Formulaire d'ajout</a> (bientôt disponible)</p>
-        <p>© 2026 · Projet libre</p>
+        <p>📢 Une info à partager ? <a href="#">Formulaire d'ajout (bientôt)</a></p>
+        <p>📱 <a href="https://wa.me/242064426075" target="_blank">Nous contacter sur WhatsApp</a></p>
+        <p>© 2026 · Projet communautaire</p>
     </footer>
 
     <script src="js/main.js"></script>

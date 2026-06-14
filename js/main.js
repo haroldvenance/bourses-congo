@@ -20,6 +20,13 @@ const evenements = [
         region: "Pointe-Noire",
         urlFiche: "fiches/bourse-congo-petrole.html",
         conditions: "Filière pétrole/gaz, moyenne ≥ 14"
+    },
+    {
+        titre: "Nouvelle Bourse",
+        date: "2026-07-20",
+        region: "Brazzaville",
+        urlFiche: "fiches/bourse-nouvelle.html",
+        conditions: "Conditions ici"
     }
     // Ajoutez d'autres événements ici au fur et à mesure
 ];

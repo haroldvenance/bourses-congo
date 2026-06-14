@@ -2,31 +2,62 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soumettre une info – Bourses Congo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Partagez une bourse ou un concours – Contribuez à la communauté Bourses & Concours Congo">
+    <title>Partager une opportunité – Bourses Congo</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📢</text></svg>">
+    <!-- Icône de partage -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231e6f5c'%3E%3Cpath d='M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v12' stroke='%231e6f5c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E">
 </head>
 <body>
-    <header>
-        <h1>📢 Partager une opportunité</h1>
-        <p class="sous-titre">Aidez les autres étudiants congolais</p>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <i class="fas fa-share-alt header-icon"></i>
+                <div>
+                    <h1>Partager une opportunité</h1>
+                    <p class="sous-titre">Aidez les autres étudiants congolais</p>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main>
-        <div class="intro">
-            <p>Vous avez vu une bourse, un concours ou une aide financière ? Remplissez ce formulaire. Notre équipe de modérateurs vérifiera l'information et l'ajoutera sur le site dans les 48h.</p>
-            <p>⚠️ <strong>Ne partagez que des sources officielles</strong> (ministères, ambassades, universités, entreprises). Les infos non vérifiées seront ignorées.</p>
+    <main class="container">
+        <div class="intro-card">
+            <h2><i class="fas fa-hands-helping"></i> Pourquoi contribuer ?</h2>
+            <p>Vous avez vu une bourse, un concours ou une aide financière ? Remplissez le formulaire ci-dessous. Notre équipe de modérateurs vérifiera l'information et l'ajoutera sur le site dans les 48 heures.</p>
+            <p><i class="fas fa-shield-alt"></i> <strong>Règle importante :</strong> Ne partagez que des sources officielles (ministères, ambassades, universités, entreprises). Les informations non vérifiées seront ignorées.</p>
         </div>
 
-        <!-- Intégration du Google Forms -->
-        <iframe src="URL_DU_FORMULAIRE?embedded=true" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
-        
-        <p class="retour"><a href="index.html">← Retour au calendrier</a></p>
+        <div class="form-container">
+            <h2><i class="fas fa-edit"></i> Formulaire de soumission</h2>
+            <!-- Remplacez l'URL ci-dessous par le vrai lien de votre Google Form -->
+            <iframe src="https://docs.google.com/forms/d/e/VOTRE_ID_ICI/viewform?embedded=true" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0" style="border-radius: 24px;">Chargement…</iframe>
+        </div>
+
+        <div class="retour-link">
+            <a href="index.html"><i class="fas fa-arrow-left"></i> Retour au calendrier</a>
+        </div>
     </main>
 
-    <footer>
-        <p>📱 Rejoignez notre <a href="https://wa.me/242XXXXXXXXX" target="_blank">groupe WhatsApp</a> pour les alertes quotidiennes.</p>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="soumettre.html"><i class="fas fa-bullhorn"></i> Partager</a>
+                <a href="mes-fiches.html"><i class="fas fa-save"></i> Mes fiches</a>
+                <a href="apropos.html"><i class="fas fa-info-circle"></i> À propos</a>
+                <a href="https://wa.me/242064426075" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            </div>
+            <p class="copyright">© 2026 · Projet communautaire congolais</p>
+        </div>
     </footer>
+
+    <!-- WhatsApp flottant -->
+    <a href="https://wa.me/242064426075?text=Bonjour%2C%20je%20souhaite%20partager%20une%20information%20sur%20le%20site" class="float-wa" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i> Nous contacter
+    </a>
 </body>
 </html>

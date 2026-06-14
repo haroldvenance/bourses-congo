@@ -1,4 +1,4 @@
-// Base de données locale des événements (vous ajouterez les autres fiches ici)
+// Base de données locale des événements (mettez à jour manuellement)
 const evenements = [
     {
         titre: "Bourse Ambassade de France",
@@ -28,7 +28,7 @@ const evenements = [
         urlFiche: "fiches/bourse-nouvelle.html",
         conditions: "Conditions ici"
     }
-    // Ajoutez d'autres événements ici au fur et à mesure
+    // Ajoutez d'autres événements ici
 ];
 
 // Fonction pour formater une date JJ/MM/AAAA
@@ -50,8 +50,7 @@ function afficherTableau(regionFiltre) {
         return;
     }
     
-    // Tri par date (plus proche d'abord)
-    filtres.sort((a,b) => new Date(a.date) - new Date(b.date));
+    filtres.sort((a, b) => new Date(a.date) - new Date(b.date));
     
     for (let ev of filtres) {
         const row = tbody.insertRow();
@@ -67,7 +66,7 @@ function afficherTableau(regionFiltre) {
     }
 }
 
-// Initialisation : afficher tout au chargement
+// Initialisation au chargement du DOM
 document.addEventListener('DOMContentLoaded', () => {
     const selectRegion = document.getElementById('region-select');
     if (selectRegion) {
@@ -77,15 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Gestion des boutons de sauvegarde et partage (pour les fiches individuelles)
     initButtons();
 });
 
-// Fonction pour les boutons sur les fiches (à appeler aussi sur la page mes-fiches si nécessaire)
+// Gestion des boutons de sauvegarde et partage
 function initButtons() {
-    // Sauvegarde
-    const saveBtns = document.querySelectorAll('.btn-save');
-    saveBtns.forEach(btn => {
+    // Boutons Sauvegarder
+    document.querySelectorAll('.btn-save').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             const titre = btn.getAttribute('data-titre');
@@ -94,25 +91,26 @@ function initButtons() {
             const url = window.location.href;
             
             let saved = JSON.parse(localStorage.getItem('bourses_saved')) || [];
-            const exists = saved.some(item => item.url === url);
-            if (!exists) {
+            const alreadyExists = saved.some(item => item.url === url);
+            
+            if (!alreadyExists) {
                 saved.push({ titre, date, conditions, url });
                 localStorage.setItem('bourses_saved', JSON.stringify(saved));
-                alert('✅ Fiche sauvegardée !');
+                alert('Fiche sauvegardée avec succès. Vous pourrez la consulter hors ligne.');
             } else {
-                alert('ℹ️ Déjà dans vos sauvegardes.');
+                alert('Cette fiche est déjà dans vos sauvegardes.');
             }
         });
     });
     
-    // Partage WhatsApp
-    const shareBtns = document.querySelectorAll('.btn-share');
-    shareBtns.forEach(btn => {
+    // Boutons Partager sur WhatsApp
+    document.querySelectorAll('.btn-share').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             const titre = btn.getAttribute('data-titre');
             const url = btn.getAttribute('data-url') || window.location.href;
-            const message = `📘 *${titre}*%0A%0ADétails : ${url}%0A%0ASource : Bourses Congo`;
+            // Message sans emoji, propre
+            const message = `*${titre}*%0A%0ADétails : ${url}%0A%0ASource : Bourses Congo`;
             window.open(`https://wa.me/?text=${message}`, '_blank');
         });
     });

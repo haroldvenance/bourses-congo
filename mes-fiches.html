@@ -2,67 +2,56 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Consultez vos fiches sauvegardées hors ligne – Bourses & Concours Congo">
     <title>Mes fiches sauvegardées – Bourses Congo</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+    <!-- Icône étoile moderne -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f5b042'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z'/%3E%3C/svg%3E">
 </head>
 <body>
-    <header>
-        <h1>⭐ Mes fiches sauvegardées</h1>
-        <p class="sous-titre">Consultables même sans connexion internet</p>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <i class="fas fa-star header-icon"></i>
+                <div>
+                    <h1>Mes fiches sauvegardées</h1>
+                    <p class="sous-titre">Consultables même sans connexion internet</p>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main>
+    <main class="container">
         <div id="saved-list" class="saved-container">
-            <p>Chargement...</p>
+            <p><i class="fas fa-spinner fa-pulse"></i> Chargement...</p>
         </div>
-        <p><a href="index.html">← Retour au calendrier</a></p>
+        <div class="retour-link">
+            <a href="index.html"><i class="fas fa-arrow-left"></i> Retour au calendrier</a>
+        </div>
     </main>
 
-    <footer>
-        <p>Les sauvegardes sont stockées sur votre téléphone uniquement.</p>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="soumettre.html"><i class="fas fa-bullhorn"></i> Partager</a>
+                <a href="mes-fiches.html"><i class="fas fa-save"></i> Mes fiches</a>
+                <a href="apropos.html"><i class="fas fa-info-circle"></i> À propos</a>
+                <a href="https://wa.me/242064426075" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            </div>
+            <p class="copyright">© 2026 · Projet communautaire congolais</p>
+        </div>
     </footer>
 
+    <!-- WhatsApp flottant -->
+    <a href="https://wa.me/242064426075?text=Bonjour%2C%20je%20consulte%20le%20site%20Bourses%20Congo" class="float-wa" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i> Nous contacter
+    </a>
+
     <script>
-        function afficherSauvegardes() {
-            const container = document.getElementById('saved-list');
-            const saved = JSON.parse(localStorage.getItem('bourses_saved')) || [];
-            
-            if (saved.length === 0) {
-                container.innerHTML = '<p>📭 Aucune fiche sauvegardée pour le moment. Utilisez le bouton "💾 Sauvegarder" sur une fiche.</p>';
-                return;
-            }
-            
-            let html = '<ul class="saved-ul">';
-            saved.forEach((item, index) => {
-                html += `
-                    <li class="saved-item">
-                        <strong>${escapeHtml(item.titre)}</strong><br>
-                        📅 Date limite : ${item.date || 'non précisée'}<br>
-                        📝 Conditions : ${escapeHtml(item.conditions || 'Voir fiche originale')}<br>
-                        <a href="${item.url}" target="_blank">🔗 Ouvrir la fiche originale (nécessite internet)</a><br>
-                        <button class="btn-delete" data-index="${index}">🗑 Supprimer cette sauvegarde</button>
-                    </li>
-                `;
-            });
-            html += '</ul>';
-            container.innerHTML = html;
-            
-            // Ajouter les événements de suppression
-            document.querySelectorAll('.btn-delete').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const idx = parseInt(btn.getAttribute('data-index'));
-                    let saved = JSON.parse(localStorage.getItem('bourses_saved')) || [];
-                    saved.splice(idx, 1);
-                    localStorage.setItem('bourses_saved', JSON.stringify(saved));
-                    afficherSauvegardes(); // rafraîchir
-                    alert('Fiche supprimée de vos sauvegardes.');
-                });
-            });
-        }
-        
-        // Fonction simple pour éviter les injections XSS
         function escapeHtml(str) {
             if (!str) return '';
             return str.replace(/[&<>]/g, function(m) {
@@ -70,11 +59,60 @@
                 if (m === '<') return '&lt;';
                 if (m === '>') return '&gt;';
                 return m;
-            }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-                return c;
             });
         }
-        
+
+        function afficherSauvegardes() {
+            const container = document.getElementById('saved-list');
+            const saved = JSON.parse(localStorage.getItem('bourses_saved')) || [];
+
+            if (saved.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <p>Aucune fiche sauvegardée pour le moment.</p>
+                        <p>Utilisez le bouton <i class="fas fa-save"></i> Sauvegarder sur une fiche pour la retrouver ici, même hors ligne.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '<ul class="saved-ul">';
+            saved.forEach((item, index) => {
+                html += `
+                    <li class="saved-item">
+                        <div class="saved-header">
+                            <i class="fas fa-file-alt"></i>
+                            <strong>${escapeHtml(item.titre)}</strong>
+                        </div>
+                        <div class="saved-detail">
+                            <i class="fas fa-calendar-alt"></i> Date limite : ${item.date || 'non précisée'}
+                        </div>
+                        <div class="saved-detail">
+                            <i class="fas fa-clipboard-list"></i> Conditions : ${escapeHtml(item.conditions || 'Voir fiche originale')}
+                        </div>
+                        <div class="saved-actions">
+                            <a href="${item.url}" target="_blank" class="btn-link"><i class="fas fa-external-link-alt"></i> Ouvrir la fiche originale (nécessite internet)</a>
+                            <button class="btn-delete" data-index="${index}"><i class="fas fa-trash-alt"></i> Supprimer</button>
+                        </div>
+                    </li>
+                `;
+            });
+            html += '</ul>';
+            container.innerHTML = html;
+
+            // Gestion des suppressions
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = parseInt(btn.getAttribute('data-index'));
+                    let saved = JSON.parse(localStorage.getItem('bourses_saved')) || [];
+                    saved.splice(idx, 1);
+                    localStorage.setItem('bourses_saved', JSON.stringify(saved));
+                    afficherSauvegardes();
+                });
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', afficherSauvegardes);
     </script>
 </body>

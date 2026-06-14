@@ -2,72 +2,124 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Résumé quotidien – usage interne</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Outil interne – Génère le résumé quotidien des bourses et concours à copier dans WhatsApp.">
+    <title>Résumé quotidien – Bourses Congo (modérateur)</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Icône interne (outil) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M4 4h16v2H4V4zm2 4h12v2H6V8zm14 4H4v2h16v-2zm-2 4H6v2h12v-2z'/%3E%3C/svg%3E">
 </head>
 <body>
-    <header><h1>📋 Résumé à copier pour WhatsApp</h1></header>
-    <main>
-        <textarea id="message" rows="10" cols="60" style="width:100%; font-family:monospace;"></textarea>
-        <button id="copyBtn">Copier le message</button>
-        <p><a href="index.html">Retour</a></p>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <i class="fas fa-robot header-icon"></i>
+                <div>
+                    <h1>Générateur de résumé quotidien</h1>
+                    <p class="sous-titre">Pour les modérateurs – Copiez le message et collez‑le sur le canal WhatsApp</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="outil-card">
+            <div class="message-preview">
+                <label for="message"><i class="fas fa-comment-dots"></i> Message prêt à copier :</label>
+                <textarea id="message" rows="12" readonly></textarea>
+            </div>
+            <div class="actions-outil">
+                <button id="copyBtn" class="btn-copy"><i class="fas fa-copy"></i> Copier le message</button>
+                <a href="index.html" class="btn-secondary"><i class="fas fa-arrow-left"></i> Retour au calendrier</a>
+            </div>
+            <div class="info-note">
+                <i class="fas fa-info-circle"></i> Ce message inclut automatiquement les échéances des 3 et 7 prochains jours. Mettez à jour le tableau des événements dans le code si nécessaire.
+            </div>
+        </div>
     </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="soumettre.html"><i class="fas fa-bullhorn"></i> Partager</a>
+                <a href="mes-fiches.html"><i class="fas fa-save"></i> Mes fiches</a>
+                <a href="apropos.html"><i class="fas fa-info-circle"></i> À propos</a>
+                <a href="https://wa.me/242064426075" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            </div>
+            <p class="copyright">© 2026 · Projet communautaire congolais – outil interne</p>
+        </div>
+    </footer>
+
     <script>
-        // Récupère les événements du même tableau que main.js
-        // (pour ne pas dupliquer, on pourrait charger main.js, mais on va redéfinir un petit tableau ou utiliser localStorage)
-        // Solution simple : inclure les événements manuellement ou les récupérer via fetch.
-        // Pour l'instant, on recopie les événements depuis main.js (vous devrez synchroniser)
+        // ----- Mettez à jour cette liste manuellement à chaque ajout de fiche -----
         const evenements = [
             { titre: "Bourse Ambassade de France", date: "2026-04-30", region: "National", urlFiche: "fiches/bourse-ambassade-france.html" },
             { titre: "Concours ENSP Brazzaville", date: "2026-05-15", region: "Brazzaville", urlFiche: "fiches/concours-ensp-brazzaville.html" },
             { titre: "Bourse Congo Pétrole", date: "2026-06-10", region: "Pointe-Noire", urlFiche: "fiches/bourse-congo-petrole.html" }
+            // Ajoutez ici les nouvelles opportunités au fur et à mesure
         ];
-        
+        // --------------------------------------------------------------------
+
         function genererResume() {
             const aujourdhui = new Date();
-            const dans3Jours = new Date(); dans3Jours.setDate(aujourdhui.getDate() + 3);
-            const dans7Jours = new Date(); dans7Jours.setDate(aujourdhui.getDate() + 7);
-            
-            const aVenir = evenements.filter(ev => new Date(ev.date) > aujourdhui);
+            aujourdhui.setHours(0, 0, 0, 0);
+            const dans3Jours = new Date(aujourdhui);
+            dans3Jours.setDate(aujourdhui.getDate() + 3);
+            const dans7Jours = new Date(aujourdhui);
+            dans7Jours.setDate(aujourdhui.getDate() + 7);
+
+            const aVenir = evenements.filter(ev => new Date(ev.date) >= aujourdhui);
             aVenir.sort((a,b) => new Date(a.date) - new Date(b.date));
-            
-            let message = "📅 *RÉSUMÉ BOURSES & CONCOURS CONGO*\n";
-            message += `🗓️ ${aujourdhui.toLocaleDateString('fr-FR')}\n\n`;
-            
+
+            let message = "*RÉSUMÉ BOURSES & CONCOURS CONGO*\n";
+            message += `${aujourdhui.toLocaleDateString('fr-FR')}\n\n`;
+
             // Échéances dans les 3 jours
             const urgent = aVenir.filter(ev => new Date(ev.date) <= dans3Jours);
             if (urgent.length) {
                 message += "⚠️ *DANS LES 3 JOURS :*\n";
                 urgent.forEach(ev => {
-                    message += `🔜 ${ev.titre} (${ev.region}) – ${new Date(ev.date).toLocaleDateString('fr-FR')}\n   ${window.location.origin}${ev.urlFiche}\n`;
+                    const dateFr = new Date(ev.date).toLocaleDateString('fr-FR');
+                    message += `• ${ev.titre} (${ev.region}) – ${dateFr}\n   ${window.location.origin}/${ev.urlFiche}\n`;
                 });
                 message += "\n";
             }
-            
-            // Échéances dans les 7 jours (sauf urgent)
+
+            // Échéances entre 4 et 7 jours
             const prochain = aVenir.filter(ev => new Date(ev.date) > dans3Jours && new Date(ev.date) <= dans7Jours);
             if (prochain.length) {
                 message += "📌 *À VENIR DANS LES 7 JOURS :*\n";
                 prochain.forEach(ev => {
-                    message += `📅 ${ev.titre} (${ev.region}) – ${new Date(ev.date).toLocaleDateString('fr-FR')}\n   ${window.location.origin}${ev.urlFiche}\n`;
+                    const dateFr = new Date(ev.date).toLocaleDateString('fr-FR');
+                    message += `• ${ev.titre} (${ev.region}) – ${dateFr}\n   ${window.location.origin}/${ev.urlFiche}\n`;
                 });
                 message += "\n";
             }
-            
-            message += "🔗 *Calendrier complet :* " + window.location.origin + "/index.html\n";
-            message += "📢 *Soumettre une info :* " + window.location.origin + "/soumettre.html\n";
+
+            message += `🔗 *Calendrier complet :* ${window.location.origin}/index.html\n`;
+            message += `📢 *Soumettre une info :* ${window.location.origin}/soumettre.html\n`;
             message += "\n_Message automatique – vérifiez les dates sur les liens officiels._";
-            
+
             return message;
         }
-        
+
         const textarea = document.getElementById('message');
         textarea.value = genererResume();
-        document.getElementById('copyBtn').addEventListener('click', () => {
-            textarea.select();
-            document.execCommand('copy');
-            alert('Message copié ! Collez-le dans votre canal WhatsApp.');
+
+        const copyBtn = document.getElementById('copyBtn');
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(textarea.value);
+                alert('✓ Message copié ! Collez-le maintenant dans votre canal WhatsApp.');
+            } catch (err) {
+                // Fallback pour les navigateurs plus anciens
+                textarea.select();
+                document.execCommand('copy');
+                alert('✓ Message copié ! Collez-le maintenant dans votre canal WhatsApp.');
+            }
         });
     </script>
 </body>

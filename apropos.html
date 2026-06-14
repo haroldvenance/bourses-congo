@@ -5,27 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="À propos de Bourses & Concours Congo – un projet porté par un ingénieur informaticien congolais spécialisé backend et sécurité.">
     <title>À propos – Bourses & Concours Congo</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👤</text></svg>">
+    <!-- Icône moderne (calendrier) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231e3a5f'%3E%3Cpath d='M8 7V3m8 4V3M5 11h14M5 19h14M7 21h10M5 7h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z' stroke='%231e3a5f' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E">
 </head>
 <body>
-    <header>
-        <h1>👤 À propos du projet</h1>
-        <p class="sous-titre">Bourses & Concours Congo – version 1.0</p>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <i class="fas fa-info-circle header-icon"></i>
+                <div>
+                    <h1>À propos du projet</h1>
+                    <p class="sous-titre">Bourses & Concours Congo – version 1.0</p>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main>
-        <section class="intro">
-            <h2>Notre mission</h2>
+    <main class="container">
+        <section class="intro-card">
+            <h2><i class="fas fa-bullseye"></i> Notre mission</h2>
             <p>Ce site est né d’un constat simple : chaque année, des milliers d’étudiants congolais (Brazzaville, Pointe-Noire, Dolisie et régions) ratent des opportunités de bourses ou de concours faute d’information centralisée, fiable et accessible sur mobile.</p>
             <p>Nous proposons un <strong>calendrier visuel des échéances</strong>, des <strong>fiches détaillées</strong> consultables même hors ligne, et un <strong>lien direct avec la communauté WhatsApp</strong> pour les rappels quotidiens. Toutes les informations sont vérifiées avant publication.</p>
         </section>
 
-        <section class="credit">
-            <h2>🚀 Porté par un ingénieur congolais</h2>
+        <section class="credit-card">
+            <h2><i class="fas fa-rocket"></i> Porté par un ingénieur congolais</h2>
             <div class="portrait">
-                <!-- Vous pouvez remplacer l'emoji par une photo si vous en avez une -->
-                <div class="avatar">👨‍💻</div>
+                <div class="avatar">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
                 <div class="bio">
                     <p><strong>MBOUMBA-DZUCHEU Harold Venance</strong><br>
                     Ingénieur informaticien – spécialiste backend & sécurité des systèmes et réseaux</p>
@@ -35,53 +47,62 @@
         </section>
 
         <section class="competences">
-            <h2>🧠 Compétences mises au service du projet</h2>
+            <h2><i class="fas fa-cogs"></i> Compétences mises au service du projet</h2>
             <div class="grille-competences">
                 <div class="carte-comp">
-                    <h3>🔧 Backend & BDD</h3>
+                    <h3><i class="fas fa-database"></i> Backend & BDD</h3>
                     <p>Python (Django, FastAPI), Node.js, API REST, SQL (PostgreSQL, SQLite), modélisation, automatisation.</p>
                 </div>
                 <div class="carte-comp">
-                    <h3>🌐 Frontend</h3>
+                    <h3><i class="fas fa-code"></i> Frontend</h3>
                     <p>JavaScript, React, Next.js, Svelte/SvelteKit – mais ici on a choisi l’extrême simplicité (HTML/CSS/JS pur) pour une compatibilité maximale sur mobile lent.</p>
                 </div>
                 <div class="carte-comp">
-                    <h3>🛡️ Sécurité & Systèmes</h3>
+                    <h3><i class="fas fa-shield-alt"></i> Sécurité & Systèmes</h3>
                     <p>Linux (Ubuntu), configuration IP, diagnostic réseau, maintenance matérielle, antivirus. Cette expertise garantit un site sain et des données protégées.</p>
                 </div>
                 <div class="carte-comp">
-                    <h3>📊 Bureautique & Outils</h3>
+                    <h3><i class="fas fa-chart-line"></i> Bureautique & Outils</h3>
                     <p>Word (publipostage), Excel (TCD, tableaux de bord), PowerPoint, Google Workspace, Git, VS Code, PyCharm.</p>
                 </div>
                 <div class="carte-comp">
-                    <h3>📈 Méthodes</h3>
+                    <h3><i class="fas fa-users"></i> Méthodes</h3>
                     <p>Agile Scrum, cycle en V – pour une amélioration continue du site.</p>
                 </div>
             </div>
         </section>
 
-        <section class="contact">
-            <h2>📫 Contact & collaboration</h2>
+        <section class="contact-section">
+            <h2><i class="fas fa-envelope"></i> Contact & collaboration</h2>
             <ul class="contact-list">
-                <li>📧 <a href="mailto:venanceharold@gmail.com">venanceharold@gmail.com</a></li>
-                <li>📞 <a href="tel:+242064426075">+242 06 442 60 75</a> (WhatsApp également)</li>
-                <li>🌐 <a href="https://site-web-harold.vercel.app/" target="_blank" rel="noopener">Portfolio personnel</a></li>
-                <li>💬 <a href="https://wa.me/242064426075" target="_blank">Me contacter directement sur WhatsApp</a></li>
+                <li><i class="fas fa-envelope"></i> <a href="mailto:venanceharold@gmail.com">venanceharold@gmail.com</a></li>
+                <li><i class="fas fa-phone-alt"></i> <a href="tel:+242064426075">+242 06 442 60 75</a> (WhatsApp également)</li>
+                <li><i class="fas fa-globe"></i> <a href="https://site-web-harold.vercel.app/" target="_blank" rel="noopener">Portfolio personnel</a></li>
+                <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/242064426075" target="_blank">Me contacter directement sur WhatsApp</a></li>
             </ul>
-            <p>Vous êtes étudiant, parent, ou responsable éducatif ? N’hésitez pas à <a href="soumettre.html">soumettre une opportunité</a> ou à rejoindre notre groupe WhatsApp.</p>
+            <p>Vous êtes étudiant, parent, ou responsable éducatif ? N’hésitez pas à <a href="soumettre.html"><i class="fas fa-bullhorn"></i> soumettre une opportunité</a> ou à rejoindre notre groupe WhatsApp.</p>
         </section>
 
-        <p class="retour"><a href="index.html">← Retour au calendrier</a></p>
+        <div class="retour-link">
+            <a href="index.html"><i class="fas fa-arrow-left"></i> Retour au calendrier</a>
+        </div>
     </main>
 
-    <footer>
-        <p>📢 <a href="soumettre.html">Partager une bourse ou un concours</a> | 💾 <a href="mes-fiches.html">Mes fiches</a> | <a href="apropos.html">À propos</a></p>
-        <p>© 2026 · Projet communautaire congolais</p>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="soumettre.html"><i class="fas fa-bullhorn"></i> Partager</a>
+                <a href="mes-fiches.html"><i class="fas fa-save"></i> Mes fiches</a>
+                <a href="apropos.html"><i class="fas fa-info-circle"></i> À propos</a>
+                <a href="https://wa.me/242064426075" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            </div>
+            <p class="copyright">© 2026 · Projet communautaire congolais</p>
+        </div>
     </footer>
 
-    <!-- Widget WhatsApp flottant (identique aux autres pages) -->
-    <a href="https://wa.me/242064426075?text=Bonjour%2C%20je%20consulte%20le%20site%20Bourses%20Congo" class="float-wa" target="_blank">
-        💬 Nous contacter
+    <!-- WhatsApp flottant -->
+    <a href="https://wa.me/242064426075?text=Bonjour%2C%20je%20consulte%20le%20site%20Bourses%20Congo" class="float-wa" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i> Nous contacter
     </a>
 </body>
 </html>

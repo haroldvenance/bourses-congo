@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="Outil interne – Génère le résumé quotidien des bourses et concours à copier dans WhatsApp.">
-    <title>Résumé quotidien – Bourses Congo (modérateur)</title>
-    <!-- Google Fonts & Font Awesome -->
+    <meta name="description" content="Outil interne – Génère un récapitulatif des bourses et concours par zone à copier dans WhatsApp.">
+    <title>Générateur de récapitulatif – Bourses Congo (modérateur)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <!-- Icône interne (outil) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M4 4h16v2H4V4zm2 4h12v2H6V8zm14 4H4v2h16v-2zm-2 4H6v2h12v-2z'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -18,7 +16,7 @@
             <div class="header-content">
                 <i class="fas fa-robot header-icon"></i>
                 <div>
-                    <h1>Générateur de résumé quotidien</h1>
+                    <h1>Générateur de récapitulatif</h1>
                     <p class="sous-titre">Pour les modérateurs – Copiez le message et collez‑le sur le canal WhatsApp</p>
                 </div>
             </div>
@@ -29,14 +27,14 @@
         <div class="outil-card">
             <div class="message-preview">
                 <label for="message"><i class="fas fa-comment-dots"></i> Message prêt à copier :</label>
-                <textarea id="message" rows="12" readonly></textarea>
+                <textarea id="message" rows="14" readonly></textarea>
             </div>
             <div class="actions-outil">
                 <button id="copyBtn" class="btn-copy"><i class="fas fa-copy"></i> Copier le message</button>
                 <a href="index.html" class="btn-secondary"><i class="fas fa-arrow-left"></i> Retour au calendrier</a>
             </div>
             <div class="info-note">
-                <i class="fas fa-info-circle"></i> Ce message inclut automatiquement les échéances des 3 et 7 prochains jours. Mettez à jour le tableau des événements dans le code si nécessaire.
+                <i class="fas fa-info-circle"></i> Ce message liste toutes les opportunités par zone (Congo, Afrique centrale, Europe, Asie, Amérique). Mettez à jour la liste des événements dans le code ci-dessous si nécessaire.
             </div>
         </div>
     </main>
@@ -54,60 +52,64 @@
     </footer>
 
     <script>
-        // ----- Mettez à jour cette liste manuellement à chaque ajout de fiche -----
-        const evenements = [
-            { titre: "Bourse Ambassade de France", date: "2026-04-30", region: "National", urlFiche: "fiches/bourse-ambassade-france.html" },
-            { titre: "Concours ENSP Brazzaville", date: "2026-05-15", region: "Brazzaville", urlFiche: "fiches/concours-ensp-brazzaville.html" },
-            { titre: "Bourse Congo Pétrole", date: "2026-06-10", region: "Pointe-Noire", urlFiche: "fiches/bourse-congo-petrole.html" }
-            // Ajoutez ici les nouvelles opportunités au fur et à mesure
+        // ----- LISTE CENTRALE DES OPPORTUNITÉS (à synchroniser avec js/main.js) -----
+        const opportunites = [
+            { titre: "Bourse d'excellence du Gouvernement congolais", zone: "Congo", url: "fiches/bourse-gouvernement-congo.html" },
+            { titre: "Concours ENSP Brazzaville", zone: "Congo", url: "fiches/concours-ensp.html" },
+            { titre: "Programme de bourses CEMAC", zone: "Afrique-centrale", url: "fiches/bourse-cemac.html" },
+            { titre: "Bourse BDEAC", zone: "Afrique-centrale", url: "fiches/bourse-bdeac.html" },
+            { titre: "Bourse de la Banque mondiale", zone: "Afrique-centrale", url: "fiches/bourse-banque-mondiale.html" },
+            { titre: "Bourse Eiffel (France)", zone: "Europe", url: "fiches/bourse-eiffel.html" },
+            { titre: "Bourse Chevening (Royaume-Uni)", zone: "Europe", url: "fiches/bourse-chevening.html" },
+            { titre: "Bourse DAAD (Allemagne)", zone: "Europe", url: "fiches/bourse-daad.html" },
+            { titre: "Bourse CSC (Chine)", zone: "Asie", url: "fiches/bourse-csc-chine.html" },
+            { titre: "Bourse MEXT (Japon)", zone: "Asie", url: "fiches/bourse-mext.html" },
+            { titre: "Bourse Fulbright (États-Unis)", zone: "Amerique", url: "fiches/bourse-fulbright.html" },
+            { titre: "Bourse du Canada", zone: "Amerique", url: "fiches/bourse-canada.html" }
         ];
-        // --------------------------------------------------------------------
 
-        function genererResume() {
-            const aujourdhui = new Date();
-            aujourdhui.setHours(0, 0, 0, 0);
-            const dans3Jours = new Date(aujourdhui);
-            dans3Jours.setDate(aujourdhui.getDate() + 3);
-            const dans7Jours = new Date(aujourdhui);
-            dans7Jours.setDate(aujourdhui.getDate() + 7);
+        // Mapping des noms de zones pour l'affichage
+        const nomZone = {
+            "Congo": "🇨🇬 Congo",
+            "Afrique-centrale": "🌍 Afrique centrale",
+            "Europe": "🇪🇺 Europe",
+            "Asie": "🌏 Asie",
+            "Amerique": "🌎 Amérique"
+        };
 
-            const aVenir = evenements.filter(ev => new Date(ev.date) >= aujourdhui);
-            aVenir.sort((a,b) => new Date(a.date) - new Date(b.date));
+        function genererMessage() {
+            // Grouper par zone
+            const grouped = {};
+            opportunites.forEach(opp => {
+                const zone = opp.zone;
+                if (!grouped[zone]) grouped[zone] = [];
+                grouped[zone].push(opp);
+            });
 
-            let message = "*RÉSUMÉ BOURSES & CONCOURS CONGO*\n";
-            message += `${aujourdhui.toLocaleDateString('fr-FR')}\n\n`;
+            const aujourdhui = new Date().toLocaleDateString('fr-FR');
+            let message = `*RÉCAPITULATIF BOURSES & CONCOURS CONGO*\n`;
+            message += `🗓️ ${aujourdhui} – Année universitaire 2025-2026\n\n`;
 
-            // Échéances dans les 3 jours
-            const urgent = aVenir.filter(ev => new Date(ev.date) <= dans3Jours);
-            if (urgent.length) {
-                message += "⚠️ *DANS LES 3 JOURS :*\n";
-                urgent.forEach(ev => {
-                    const dateFr = new Date(ev.date).toLocaleDateString('fr-FR');
-                    message += `• ${ev.titre} (${ev.region}) – ${dateFr}\n   ${window.location.origin}/${ev.urlFiche}\n`;
-                });
-                message += "\n";
-            }
-
-            // Échéances entre 4 et 7 jours
-            const prochain = aVenir.filter(ev => new Date(ev.date) > dans3Jours && new Date(ev.date) <= dans7Jours);
-            if (prochain.length) {
-                message += "📌 *À VENIR DANS LES 7 JOURS :*\n";
-                prochain.forEach(ev => {
-                    const dateFr = new Date(ev.date).toLocaleDateString('fr-FR');
-                    message += `• ${ev.titre} (${ev.region}) – ${dateFr}\n   ${window.location.origin}/${ev.urlFiche}\n`;
-                });
-                message += "\n";
+            // Ordre des zones souhaité
+            const ordreZones = ["Congo", "Afrique-centrale", "Europe", "Asie", "Amerique"];
+            for (let zone of ordreZones) {
+                if (grouped[zone] && grouped[zone].length > 0) {
+                    message += `*${nomZone[zone] || zone}*\n`;
+                    grouped[zone].forEach(opp => {
+                        message += `• ${opp.titre}\n   ${window.location.origin}/${opp.url}\n`;
+                    });
+                    message += "\n";
+                }
             }
 
             message += `🔗 *Calendrier complet :* ${window.location.origin}/index.html\n`;
             message += `📢 *Soumettre une info :* ${window.location.origin}/soumettre.html\n`;
-            message += "\n_Message automatique – vérifiez les dates sur les liens officiels._";
-
+            message += "\n_Message automatique – consultez les fiches pour les conditions détaillées._";
             return message;
         }
 
         const textarea = document.getElementById('message');
-        textarea.value = genererResume();
+        textarea.value = genererMessage();
 
         const copyBtn = document.getElementById('copyBtn');
         copyBtn.addEventListener('click', async () => {
@@ -115,7 +117,6 @@
                 await navigator.clipboard.writeText(textarea.value);
                 alert('✓ Message copié ! Collez-le maintenant dans votre canal WhatsApp.');
             } catch (err) {
-                // Fallback pour les navigateurs plus anciens
                 textarea.select();
                 document.execCommand('copy');
                 alert('✓ Message copié ! Collez-le maintenant dans votre canal WhatsApp.');

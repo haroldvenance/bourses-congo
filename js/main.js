@@ -1,100 +1,150 @@
-// Base de données locale des événements (mettez à jour manuellement)
+// Base de données des opportunités (mettre à jour manuellement)
 const evenements = [
     {
-        titre: "Bourse Ambassade de France",
-        date: "2026-04-30",
-        region: "National",
-        urlFiche: "fiches/bourse-ambassade-france.html",
-        conditions: "Étudiant congolais, projet France, moins de 28 ans"
+        titre: "Bourse d'excellence du Gouvernement congolais",
+        annee: "2025-2026",
+        zone: "Congo",
+        urlFiche: "fiches/bourse-gouvernement-congo.html",
+        description: "Bourse pour les étudiants congolais méritants"
     },
     {
         titre: "Concours ENSP Brazzaville",
-        date: "2026-05-15",
-        region: "Brazzaville",
-        urlFiche: "fiches/concours-ensp-brazzaville.html",
-        conditions: "Bac+2 minimum, inscription à l'ENSP"
+        annee: "2025-2026",
+        zone: "Congo",
+        urlFiche: "fiches/concours-ensp.html",
+        description: "Concours d'entrée à l'École Normale Supérieure Polytechnique"
     },
     {
-        titre: "Bourse Congo Pétrole",
-        date: "2026-06-10",
-        region: "Pointe-Noire",
-        urlFiche: "fiches/bourse-congo-petrole.html",
-        conditions: "Filière pétrole/gaz, moyenne ≥ 14"
+        titre: "Programme de bourses CEMAC",
+        annee: "2025-2026",
+        zone: "Afrique-centrale",
+        urlFiche: "fiches/bourse-cemac.html",
+        description: "Bourse pour les ressortissants de la CEMAC"
     },
     {
-        titre: "Nouvelle Bourse",
-        date: "2026-07-20",
-        region: "Brazzaville",
-        urlFiche: "fiches/bourse-nouvelle.html",
-        conditions: "Conditions ici"
+        titre: "Bourse BDEAC",
+        annee: "2025-2026",
+        zone: "Afrique-centrale",
+        urlFiche: "fiches/bourse-bdeac.html",
+        description: "Bourse de la Banque de Développement des États de l'Afrique Centrale"
+    },
+    {
+        titre: "Bourse Eiffel (France)",
+        annee: "2025-2026",
+        zone: "Europe",
+        urlFiche: "fiches/bourse-eiffel.html",
+        description: "Programme d'excellence du gouvernement français"
+    },
+    {
+        titre: "Bourse Chevening (Royaume-Uni)",
+        annee: "2025-2026",
+        zone: "Europe",
+        urlFiche: "fiches/bourse-chevening.html",
+        description: "Bourse du gouvernement britannique"
+    },
+    {
+        titre: "Bourse DAAD (Allemagne)",
+        annee: "2025-2026",
+        zone: "Europe",
+        urlFiche: "fiches/bourse-daad.html",
+        description: "Service d'échange académique allemand"
+    },
+    {
+        titre: "Bourse CSC (Chine)",
+        annee: "2025-2026",
+        zone: "Asie",
+        urlFiche: "fiches/bourse-csc-chine.html",
+        description: "Bourse du gouvernement chinois"
+    },
+    {
+        titre: "Bourse MEXT (Japon)",
+        annee: "2025-2026",
+        zone: "Asie",
+        urlFiche: "fiches/bourse-mext.html",
+        description: "Bourse du gouvernement japonais"
+    },
+    {
+        titre: "Bourse Fulbright (États-Unis)",
+        annee: "2025-2026",
+        zone: "Amerique",
+        urlFiche: "fiches/bourse-fulbright.html",
+        description: "Programme d'échange États-Unis"
+    },
+    {
+        titre: "Bourse du Canada",
+        annee: "2025-2026",
+        zone: "Amerique",
+        urlFiche: "fiches/bourse-canada.html",
+        description: "Programme de bourses canadiennes"
+    },
+    {
+        titre: "Bourse de la Banque mondiale",
+        annee: "2025-2026",
+        zone: "Afrique-centrale",
+        urlFiche: "fiches/bourse-banque-mondiale.html",
+        description: "Pour les étudiants d'Afrique centrale"
     }
-    // Ajoutez d'autres événements ici
 ];
 
-// Fonction pour formater une date JJ/MM/AAAA
-function formatDateFr(dateStr) {
-    const [annee, mois, jour] = dateStr.split('-');
-    return `${jour}/${mois}/${annee}`;
-}
-
-// Fonction pour afficher le tableau selon la région sélectionnée
-function afficherTableau(regionFiltre) {
+// Fonction pour afficher le tableau selon la zone sélectionnée
+function afficherTableau(zoneFiltre) {
     const tbody = document.getElementById('table-body');
     if (!tbody) return;
     tbody.innerHTML = '';
-    
-    const filtres = evenements.filter(ev => regionFiltre === 'all' || ev.region === regionFiltre);
-    
+
+    const filtres = evenements.filter(ev => zoneFiltre === 'all' || ev.zone === zoneFiltre);
+
     if (filtres.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4">Aucune échéance pour cette région pour le moment.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="3">Aucune opportunité pour cette zone pour le moment.</td></tr>';
         return;
     }
-    
-    filtres.sort((a, b) => new Date(a.date) - new Date(b.date));
-    
+
     for (let ev of filtres) {
         const row = tbody.insertRow();
-        row.insertCell(0).textContent = formatDateFr(ev.date);
-        row.insertCell(1).textContent = ev.titre;
-        row.insertCell(2).textContent = ev.region;
-        const lienCell = row.insertCell(3);
+        // Colonne Année universitaire
+        row.insertCell(0).textContent = ev.annee;
+        // Colonne Programme (cliquable)
+        const titreCell = row.insertCell(1);
         const lien = document.createElement('a');
         lien.href = ev.urlFiche;
-        lien.textContent = 'Voir la fiche';
-        lien.target = '_blank';
-        lienCell.appendChild(lien);
+        lien.textContent = ev.titre;
+        lien.style.fontWeight = '600';
+        lien.style.cursor = 'pointer';
+        titreCell.appendChild(lien);
+        // Colonne Zone
+        row.insertCell(2).textContent = ev.zone;
     }
 }
 
 // Initialisation au chargement du DOM
 document.addEventListener('DOMContentLoaded', () => {
-    const selectRegion = document.getElementById('region-select');
-    if (selectRegion) {
-        afficherTableau(selectRegion.value);
-        selectRegion.addEventListener('change', (e) => {
+    const selectZone = document.getElementById('region-select');
+    if (selectZone) {
+        afficherTableau(selectZone.value);
+        selectZone.addEventListener('change', (e) => {
             afficherTableau(e.target.value);
         });
     }
-    
+
     initButtons();
 });
 
-// Gestion des boutons de sauvegarde et partage
+// Gestion des boutons de sauvegarde et partage (pour les fiches individuelles)
 function initButtons() {
-    // Boutons Sauvegarder
+    // Sauvegarde
     document.querySelectorAll('.btn-save').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             const titre = btn.getAttribute('data-titre');
-            const date = btn.getAttribute('data-date');
+            const annee = btn.getAttribute('data-date'); // "2025-2026"
             const conditions = btn.getAttribute('data-conditions');
             const url = window.location.href;
-            
+
             let saved = JSON.parse(localStorage.getItem('bourses_saved')) || [];
             const alreadyExists = saved.some(item => item.url === url);
-            
+
             if (!alreadyExists) {
-                saved.push({ titre, date, conditions, url });
+                saved.push({ titre, annee, conditions, url });
                 localStorage.setItem('bourses_saved', JSON.stringify(saved));
                 alert('Fiche sauvegardée avec succès. Vous pourrez la consulter hors ligne.');
             } else {
@@ -102,14 +152,13 @@ function initButtons() {
             }
         });
     });
-    
-    // Boutons Partager sur WhatsApp
+
+    // Partage WhatsApp
     document.querySelectorAll('.btn-share').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             const titre = btn.getAttribute('data-titre');
             const url = btn.getAttribute('data-url') || window.location.href;
-            // Message sans emoji, propre
             const message = `*${titre}*%0A%0ADétails : ${url}%0A%0ASource : Bourses Congo`;
             window.open(`https://wa.me/?text=${message}`, '_blank');
         });

@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Consultez vos fiches sauvegardées hors ligne – Bourses & Concours Congo">
     <title>Mes fiches sauvegardées – Bourses Congo</title>
-    <!-- Google Fonts & Font Awesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <!-- Icône étoile moderne -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f5b042'%3E%3Cpath d='M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -27,7 +25,9 @@
 
     <main class="container">
         <div id="saved-list" class="saved-container">
-            <p><i class="fas fa-spinner fa-pulse"></i> Chargement...</p>
+            <div class="loading-state">
+                <i class="fas fa-spinner fa-pulse"></i> Chargement...
+            </div>
         </div>
         <div class="retour-link">
             <a href="index.html"><i class="fas fa-arrow-left"></i> Retour au calendrier</a>
@@ -46,7 +46,6 @@
         </div>
     </footer>
 
-    <!-- WhatsApp flottant -->
     <a href="https://wa.me/242064426075?text=Bonjour%2C%20je%20consulte%20le%20site%20Bourses%20Congo" class="float-wa" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-whatsapp"></i> Nous contacter
     </a>
@@ -79,6 +78,10 @@
 
             let html = '<ul class="saved-ul">';
             saved.forEach((item, index) => {
+                // Support des anciennes sauvegardes (avec 'date') et des nouvelles (avec 'annee')
+                const anneeAffichage = item.annee || item.date || '2025-2026';
+                const conditionsAffichage = item.conditions || 'Consultez la fiche originale pour plus de détails.';
+                
                 html += `
                     <li class="saved-item">
                         <div class="saved-header">
@@ -86,10 +89,10 @@
                             <strong>${escapeHtml(item.titre)}</strong>
                         </div>
                         <div class="saved-detail">
-                            <i class="fas fa-calendar-alt"></i> Date limite : ${item.date || 'non précisée'}
+                            <i class="fas fa-calendar-alt"></i> Année universitaire : ${escapeHtml(anneeAffichage)}
                         </div>
                         <div class="saved-detail">
-                            <i class="fas fa-clipboard-list"></i> Conditions : ${escapeHtml(item.conditions || 'Voir fiche originale')}
+                            <i class="fas fa-clipboard-list"></i> Conditions : ${escapeHtml(conditionsAffichage)}
                         </div>
                         <div class="saved-actions">
                             <a href="${item.url}" target="_blank" class="btn-link"><i class="fas fa-external-link-alt"></i> Ouvrir la fiche originale (nécessite internet)</a>
@@ -101,7 +104,6 @@
             html += '</ul>';
             container.innerHTML = html;
 
-            // Gestion des suppressions
             document.querySelectorAll('.btn-delete').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const idx = parseInt(btn.getAttribute('data-index'));

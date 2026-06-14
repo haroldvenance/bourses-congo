@@ -82,7 +82,7 @@ a:hover {
 }
 
 /* -------------------------------
-   FILTRE RÉGION (index)
+   FILTRE ZONE GÉOGRAPHIQUE
 --------------------------------- */
 .filtre-region {
     background: white;
@@ -117,7 +117,7 @@ a:hover {
 }
 
 /* -------------------------------
-   TABLEAU CALENDRIER
+   TABLEAU PRINCIPAL
 --------------------------------- */
 .table-container {
     background: white;
@@ -153,10 +153,16 @@ a:hover {
 }
 
 .calendrier-table a {
-    font-weight: 500;
+    font-weight: 600;
+    color: #1e6f5c;
+    text-decoration: none;
 }
 
-/* Sauvegarde info */
+.calendrier-table a:hover {
+    text-decoration: underline;
+}
+
+/* Info sauvegarde */
 .info-sauvegarde {
     background: #eef2fa;
     padding: 0.9rem 1.5rem;
@@ -187,7 +193,7 @@ a:hover {
 }
 
 /* -------------------------------
-   FICHES (détail)
+   FICHE DÉTAILLÉE (article)
 --------------------------------- */
 .fiche-card {
     background: white;
@@ -268,7 +274,7 @@ a:hover {
 }
 
 /* -------------------------------
-   PAGE À PROPOS
+   PAGES : À PROPOS / CONTACT / GRILLES
 --------------------------------- */
 .intro-card, .credit-card, .competences, .contact-section, .outil-card, .form-container {
     background: white;
@@ -332,11 +338,6 @@ a:hover {
     gap: 0.5rem;
 }
 
-.carte-comp p {
-    font-size: 0.9rem;
-    color: #2c3e50;
-}
-
 .contact-list {
     list-style: none;
     padding: 0;
@@ -358,8 +359,65 @@ a:hover {
     color: #1e6f5c;
 }
 
+/* Grille d'opportunités (pages par zone) */
+.grille-opportunites {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.carte-opportunite {
+    background: #f8fafc;
+    border-radius: 24px;
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.carte-opportunite:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.15);
+}
+
+.carte-opportunite h3 {
+    color: #0b2b26;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.carte-opportunite p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #2c3e50;
+}
+
+.carte-opportunite i {
+    width: 1.5rem;
+    color: #1e6f5c;
+}
+
+.btn-custom {
+    display: inline-block;
+    margin-top: 1rem;
+    background: #1e6f5c;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 40px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-custom:hover {
+    background: #0b4f41;
+    text-decoration: none;
+    color: white;
+}
+
 /* -------------------------------
-   MES FICHES (sauvegardes)
+   MES FICHES (SAUVEGARDES)
 --------------------------------- */
 .saved-container {
     background: white;
@@ -457,7 +515,7 @@ a:hover {
 }
 
 /* -------------------------------
-   GÉNÉRATEUR RÉSUMÉ (outil interne)
+   GÉNÉRATEUR DE RÉSUMÉ (OUTIL)
 --------------------------------- */
 .outil-card textarea {
     width: 100%;
@@ -518,7 +576,7 @@ a:hover {
 }
 
 /* -------------------------------
-   FORMULAIRE (soumettre.html)
+   FORMULAIRE (SOUMETTRE)
 --------------------------------- */
 .form-container iframe {
     width: 100%;
@@ -528,7 +586,7 @@ a:hover {
 }
 
 /* -------------------------------
-   RETOUR LIEN
+   BOUTON RETOUR
 --------------------------------- */
 .retour-link {
     margin: 2rem 0 1rem;
@@ -620,7 +678,7 @@ a:hover {
 }
 
 /* -------------------------------
-   RESPONSIVE (mobile & tablette)
+   RESPONSIVE
 --------------------------------- */
 @media (max-width: 768px) {
     .container {
@@ -643,7 +701,7 @@ a:hover {
         font-size: 0.8rem;
     }
     .calendrier-table th i {
-        display: none; /* cache icônes sur petit écran pour gagner de la place */
+        display: none;
     }
     .fiche-card {
         padding: 1.2rem;
@@ -697,4 +755,113 @@ a:hover {
         display: block;
         text-align: center;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Formulaire de soumission */
+.soumission-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #1e3a5f;
+}
+
+.form-group label i {
+    width: 1.5rem;
+    color: #1e6f5c;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #1e6f5c;
+    box-shadow: 0 0 0 3px rgba(30, 111, 92, 0.2);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.btn-submit, .btn-reset {
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+}
+
+.btn-submit {
+    background: #1e6f5c;
+    color: white;
+}
+
+.btn-submit:hover {
+    background: #0b4f41;
+    transform: scale(1.02);
+}
+
+.btn-reset {
+    background: #e2e8f0;
+    color: #1e2a3a;
+}
+
+.btn-reset:hover {
+    background: #cbd5e1;
+}
+
+.form-status {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.form-status.loading {
+    background: #eef2ff;
+    color: #1e3a5f;
+}
+
+.form-status.success {
+    background: #e6f7ec;
+    color: #0b4f41;
+}
+
+.form-status.error {
+    background: #fee2e2;
+    color: #b91c1c;
 }

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="Calendrier des bourses et concours en République du Congo. Filtre par région, fiches détaillées, sauvegarde hors ligne.">
-    <title>Bourses & Concours Congo – Calendrier</title>
+    <meta name="description" content="Calendrier des bourses et concours – Congo, Afrique centrale, Europe, Asie, Amérique. Fiches détaillées consultables hors ligne.">
+    <title>Bourses & Concours – Calendrier</title>
     <!-- Google Fonts & Font Awesome -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -18,7 +18,7 @@
                 <i class="fas fa-calendar-alt header-icon"></i>
                 <div>
                     <h1>Bourses & Concours Congo</h1>
-                    <p class="sous-titre">Calendrier des échéances – mises à jour régulières</p>
+                    <p class="sous-titre">Calendrier des échéances 2025-2026 – mises à jour régulières</p>
                 </div>
             </div>
         </div>
@@ -26,13 +26,14 @@
 
     <main class="container">
         <div class="filtre-region">
-            <label><i class="fas fa-globe"></i> Filtrer par région :</label>
+            <label><i class="fas fa-globe"></i> Filtrer par zone géographique :</label>
             <select id="region-select" class="region-select">
-                <option value="all">Toutes les régions</option>
-                <option value="Brazzaville">Brazzaville</option>
-                <option value="Pointe-Noire">Pointe-Noire</option>
-                <option value="Dolisie">Dolisie</option>
-                <option value="National">National</option>
+                <option value="all">Toutes les zones</option>
+                <option value="Congo">🇨🇬 Congo</option>
+                <option value="Afrique-centrale">🌍 Afrique centrale</option>
+                <option value="Europe">🇪🇺 Europe</option>
+                <option value="Asie">🌏 Asie</option>
+                <option value="Amerique">🌎 Amérique</option>
             </select>
         </div>
 
@@ -40,10 +41,9 @@
             <table id="calendrier-table" class="calendrier-table">
                 <thead>
                     <tr>
-                        <th><i class="fas fa-calendar-week"></i> Date limite</th>
-                        <th><i class="fas fa-graduation-cap"></i> Événement</th>
-                        <th><i class="fas fa-location-dot"></i> Région</th>
-                        <th><i class="fas fa-file-alt"></i> Fiche</th>
+                        <th><i class="fas fa-calendar-week"></i> Année universitaire</th>
+                        <th><i class="fas fa-graduation-cap"></i> Programme / Bourse</th>
+                        <th><i class="fas fa-location-dot"></i> Zone</th>
                     </tr>
                 </thead>
                 <tbody id="table-body">

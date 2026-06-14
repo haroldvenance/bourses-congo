@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Partagez une bourse ou un concours – Contribuez à la communauté Bourses & Concours Congo">
     <title>Partager une opportunité – Bourses Congo</title>
-    <!-- Google Fonts & Font Awesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <!-- Icône de partage -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231e6f5c'%3E%3Cpath d='M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v12' stroke='%231e6f5c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -34,8 +32,82 @@
 
         <div class="form-container">
             <h2><i class="fas fa-edit"></i> Formulaire de soumission</h2>
-            <!-- Remplacez l'URL ci-dessous par le vrai lien de votre Google Form -->
-            <iframe src="https://docs.google.com/forms/d/e/VOTRE_ID_ICI/viewform?embedded=true" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0" style="border-radius: 24px;">Chargement…</iframe>
+
+            <!-- Messages de statut (affichés automatiquement par Formspree) -->
+            <div data-fs-success class="form-status success" style="display: none;">
+                <i class="fas fa-check-circle"></i> Merci ! Votre suggestion a été envoyée. Nous la traiterons dans les 48h.
+            </div>
+            <div data-fs-error class="form-status error" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i> Une erreur est survenue. Veuillez réessayer ou nous contacter directement sur WhatsApp.
+            </div>
+
+            <form id="submission-form" class="soumission-form" action="https://formspree.io/f/xlgkalrz" method="POST">
+                <!-- anti-spam honeypot -->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                    <input type="text" name="_gotcha" tabindex="-1">
+                </div>
+
+                <div class="form-group">
+                    <label for="titre"><i class="fas fa-tag"></i> Intitulé de l'opportunité *</label>
+                    <input type="text" id="titre" name="titre" required placeholder="Ex: Bourse d'excellence du Gouvernement congolais" data-fs-field>
+                    <span data-fs-error="titre" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="annee"><i class="fas fa-calendar-alt"></i> Année universitaire *</label>
+                    <select id="annee" name="annee" required data-fs-field>
+                        <option value="2025-2026">2025-2026</option>
+                        <option value="2026-2027">2026-2027</option>
+                        <option value="Autre">Autre (précisez dans le message)</option>
+                    </select>
+                    <span data-fs-error="annee" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="zone"><i class="fas fa-globe"></i> Zone géographique *</label>
+                    <select id="zone" name="zone" required data-fs-field>
+                        <option value="">Sélectionnez une zone</option>
+                        <option value="Congo">Congo</option>
+                        <option value="Afrique-centrale">Afrique centrale</option>
+                        <option value="Europe">Europe</option>
+                        <option value="Asie">Asie</option>
+                        <option value="Amerique">Amérique</option>
+                    </select>
+                    <span data-fs-error="zone" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="conditions"><i class="fas fa-check-circle"></i> Conditions (principales) *</label>
+                    <textarea id="conditions" name="conditions" rows="4" required placeholder="Listez les conditions essentielles (nationalité, niveau d'études, âge, etc.)" data-fs-field></textarea>
+                    <span data-fs-error="conditions" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="lien"><i class="fas fa-link"></i> Lien officiel *</label>
+                    <input type="url" id="lien" name="lien" required placeholder="https://..." data-fs-field>
+                    <span data-fs-error="lien" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact"><i class="fas fa-phone-alt"></i> Contact (email ou téléphone)</label>
+                    <input type="text" id="contact" name="contact" placeholder="Ex: bourses@education.gouv.cg / +242 XX XXX XX" data-fs-field>
+                </div>
+
+                <div class="form-group">
+                    <label for="source"><i class="fas fa-user-check"></i> Votre nom ou pseudo (optionnel)</label>
+                    <input type="text" id="source" name="source" placeholder="Pour vous remercier" data-fs-field>
+                </div>
+
+                <div class="form-group">
+                    <label for="message"><i class="fas fa-comment"></i> Informations complémentaires</label>
+                    <textarea id="message" name="message" rows="3" placeholder="Date précise, public cible, etc." data-fs-field></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit" data-fs-submit-btn><i class="fas fa-paper-plane"></i> Envoyer ma suggestion</button>
+                    <button type="reset" class="btn-reset"><i class="fas fa-undo-alt"></i> Réinitialiser</button>
+                </div>
+            </form>
         </div>
 
         <div class="retour-link">
@@ -55,9 +127,49 @@
         </div>
     </footer>
 
-    <!-- WhatsApp flottant -->
     <a href="https://wa.me/242064426075?text=Bonjour%2C%20je%20souhaite%20partager%20une%20information%20sur%20le%20site" class="float-wa" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-whatsapp"></i> Nous contacter
     </a>
+
+    <!-- Intégration Formspree Ajax -->
+    <script>
+        window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+        formspree('initForm', { formElement: '#submission-form', formId: 'xlgkalrz' });
+    </script>
+    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+    <!-- Optionnel : ajustement des styles pour les messages d'erreur de champ -->
+    <style>
+        .field-error {
+            font-size: 0.75rem;
+            color: #b91c1c;
+            margin-top: 0.25rem;
+            display: inline-block;
+        }
+        .form-group input[data-fs-field].fs-invalid,
+        .form-group select[data-fs-field].fs-invalid,
+        .form-group textarea[data-fs-field].fs-invalid {
+            border-color: #b91c1c;
+            background-color: #fee2e2;
+        }
+        .form-status {
+            display: block;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 20px;
+            text-align: center;
+        }
+        .form-status.success {
+            background: #e6f7ec;
+            color: #0b4f41;
+        }
+        .form-status.error {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+        .form-status i {
+            margin-right: 0.5rem;
+        }
+    </style>
 </body>
 </html>
